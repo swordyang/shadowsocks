@@ -80,13 +80,14 @@ class DbTransfer(object):
         cur = conn.cursor()
         rows = []
 
-        count = cur.execute("SELECT id FROM ss_node WHERE '" + NODE_HOST + "'");
+        count = cur.execute("SELECT id FROM ss_node WHERE node_server'" + Config.NODE_HOST + "'");
         node_id = 0
-        if(count != 1)
+        if count != 1:
+            print 'warnning: no node found!'
             return rows
         else:
             node_id = cursor.fetchone()[0]
-        print NODE_HOST + ' id = ' + str(node_id)
+        print Config.NODE_HOST + ' id = ' + str(node_id)
 
         cur.execute("SELECT port, u, d, transfer_enable, passwd, switch, enable FROM user WHERE node_id=" + str(node_id))
         for r in cur.fetchall():
