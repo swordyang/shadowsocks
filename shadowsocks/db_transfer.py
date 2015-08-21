@@ -78,8 +78,17 @@ class DbTransfer(object):
         conn = cymysql.connect(host=Config.MYSQL_HOST, port=Config.MYSQL_PORT, user=Config.MYSQL_USER,
                                passwd=Config.MYSQL_PASS, db=Config.MYSQL_DB, charset='utf8')
         cur = conn.cursor()
-        cur.execute("SELECT port, u, d, transfer_enable, passwd, switch, enable FROM user")
         rows = []
+
+        count = cur.execute("SELECT id FROM ss_node WHERE '" + NODE_HOST + "'");
+        node_id = 0
+        if(count != 1)
+            return rows
+        else:
+            node_id = cursor.fetchone()[0]
+        print NODE_HOST + ' id = ' + str(node_id)
+
+        cur.execute("SELECT port, u, d, transfer_enable, passwd, switch, enable FROM user WHERE node_id=" + str(node_id))
         for r in cur.fetchall():
             rows.append(list(r))
         cur.close()

@@ -1,4 +1,5 @@
 #Config
+NODE_HOST = 's1.kytong.net'
 MYSQL_HOST = 'mdss.mengsky.net'
 MYSQL_PORT = 3306
 MYSQL_USER = 'ss'
